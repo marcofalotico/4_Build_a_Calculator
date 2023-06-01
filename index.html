@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+    <!-- HEAD TAG -->
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Title -->
+    <title>Calculator App</title>
+
+    <!-- SCRIPT -->
+    <script>
+        
+        // imposto la funzione updateDisplay che mostra tutti i value che vengono premuti, con .innerHTML
+        let updateDisplay = (value) => {
+            let displayField = document.getElementById("display");
+            // se il primo numero è zero fai vedere il numero reale che premo, in questo modo nulla potrà iniziare con lo 0, altrimenti concatena tutti i values premuti
+            if (displayField.innerHTML === "0") {
+                displayField.innerHTML = value;
+            } else {
+                displayField.innerHTML += value;
+            }
+        }
+
+        // imposto la funzione quando viene premuto il tasto "=": salvo la stringa di values scritti nel displayField e la passo alla funzione JS "eval("string")" che fa l'operazione ricevuta una stringa di calcolo.
+        // mostro infine il risultato nell'answerField e resetto lo storyDisplayField
+        let equalFun = () => {
+            let storyDisplayField = document.getElementById("story-display");
+            let displayField = document.getElementById("display");
+            let operation = storyDisplayField.innerText;
+            displayField.innerText = eval(operation);
+            storyDisplayField.innerText = "";
+        }
+
+        // imposto la funzione clear, che mi fa returnare a 0 ogni volta che clicco il relativo bottone AC.
+        let clearDisplay = () => {
+            let displayField = document.getElementById("display");
+            let storyDisplayField = document.getElementById("story-display");
+            displayField.innerHTML = "0";
+            storyDisplayField.innerHTML = "";
+        }
+
+        // imposto operationFun() in modo che quando clicco un segno opertore (+,- * /) il mio operando appena scritto si sposti nello storyField e resetti vuoto il displayField, per poter scrivere un altro operando
+        let operationFun = () => {
+            let displayField = document.getElementById("display");
+            let storyDisplayField = document.getElementById("story-display");
+            let number = displayField.innerText;
+            storyDisplayField.innerHTML += number;
+            displayField.innerHTML = "";
+        }
+
+        // l'operando nel displayField è sottoposto a dotCheck per far si che la virgola compaia solo una volta prima che clicco un segno operatore
+        let dotCheck = (value) => {
+            let displayField = document.getElementById("display");
+
+            if (displayField.innerText.indexOf(".") === -1) {
+                displayField.innerHTML += value;
+            }
+        }
+        let isOperator = (value) => {
+            if (value === /([+,\-,*,\/])/g) {
+                return true;
+            }
+        }
+
+        // imposto la funzione che elimina l'ultimo numero inserito nel displayField
+        let deleteDisplay = () => {
+            let displayField = document.getElementById("display");
+            displayField.innerHTML = "";
+        }
+
+    </script>
+  </head>
+
+  <!-- BODY TAG -->
+  <body class="container-fluid">
+    <div class="text-center">Calculator App</div>
+    <div class="container">
+            <div class="grid col">
+                <div class="display text-right" id="story-display"></div>
+                <div class="display text-right" id="display"></div>
+                <div class="btn btn-light AC" id="clear" onclick="clearDisplay()">AC</div>
+                <div class="btn btn-light C" id="delete" onclick="deleteDisplay()">C</div>
+                <div class="btn btn-light div" id="divide" onclick="updateDisplay('/'), operationFun()">/</div>
+                <div class="btn btn-light times" id="multiply" onclick="updateDisplay('*'), operationFun()">x</div>
+
+                <div class="btn btn-light seven" id="seven" onclick="updateDisplay(7)">7</div>
+                <div class="btn btn-light eight" id="eight" onclick="updateDisplay(8)">8</div>
+                <div class="btn btn-light nine" id="nine" onclick="updateDisplay(9)">9</div>
+                <div class="btn btn-light minus" id="subtract" onclick="updateDisplay('-'), operationFun()">-</div>
+
+                <div class="btn btn-light four" id="four" onclick="updateDisplay(4)">4</div>
+                <div class="btn btn-light five" id="five" onclick="updateDisplay(5)">5</div>
+                <div class="btn btn-light six" id="six" onclick="updateDisplay(6)">6</div>
+                <div class="btn btn-light plus" id="add" onclick="updateDisplay('+'), operationFun()">+</div>
+
+                <div class="btn btn-light one" id="one" onclick="updateDisplay(1)">1</div>
+                <div class="btn btn-light two" id="two" onclick="updateDisplay(2)">2</div>
+                <div class="btn btn-light three" id="three" onclick="updateDisplay(3)">3</div>
+                <div class="btn btn-light equal" id="equals" onclick="operationFun(), equalFun()">=</div>
+
+                <div class="btn btn-light zero" id="zero" onclick="updateDisplay(0)">0</div>
+                <div class="btn btn-light dot" id="decimal" onclick="dotCheck('.')">.</div>
+            </div>
+        </div>
+        <div class="text-center">by Marco Falotico</div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+  </body>
+</html>

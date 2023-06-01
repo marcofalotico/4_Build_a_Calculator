@@ -1,0 +1,59 @@
+/* sposto il container nella pagina e lo allineo */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* mi occupo della grid che contiene tutti i pulsanti: gli do un display:grid e un template colonne/righe */
+.grid { 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "story-display story-display story-display story-display"
+    "display display display display"
+    "AC C div times"
+    "seven eight nine minus"
+    "four five six plus"
+    "one two three equal"
+    "zero zero dot equal"
+    ;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: hsl(0, 0%, 90%);
+}
+
+.AC, .C, .div, .times {
+    margin-top: 10px;
+}
+
+
+/* i bottoni li voglio con un po' di padding e leggermente arrotondati*/
+.btn {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(172, 172, 172);
+}
+
+/* unisco le aree che devono essere "giuntate" con il grid area uguale al nome della classe specifica */
+#story-display {
+    grid-area: story-display;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px 8px 0px 0px;
+}
+.display {
+    grid-area: display;
+    text-align: center;
+    background-color: white;
+    border-radius: 0px 0px 8px 8px;
+}
+.zero {
+    grid-area: zero;
+}
+.equal {
+    grid-area: equal;
+}
+
